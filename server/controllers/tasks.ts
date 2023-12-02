@@ -1,30 +1,65 @@
 import express from 'express'
+import Task from '../models/tasks'
 
 const taskRouter = express.Router()
 
-taskRouter.get('/', (req, res) => {
-  res.send('All tasks')
+taskRouter.get('/', async (req, res, next) => {
+  try {
+    const tasks = await Task.find({})
+    res.send({ error: false, tasks })
+  } catch (err) {
+    next(err)
+  }
 })
 
-taskRouter.get('/:id', (req, res) => {
-  const { id } = req.params
-  res.send(`Get task with id: ${id}`)
+taskRouter.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const task = await Task.findById(id)
+    if (task) {
+      res.send({ error: false, task })
+    } else {
+      throw { name: 'NotFound' }
+    }
+  } catch (err) {
+    next(err)
+  }
 })
 
-taskRouter.post('/', (req, res) => {
-  const { content, author } = req.body
-  res.send(`Create ${content} task by ${author}`)
+taskRouter.post('/', async (req, res, next) => {
+  try {
+    const { content, author } = req.body
+    if (!content || !author) throw { name: 'FieldsMissing' }
+    const task = await Task.create({ content, author })
+    res.send({ error: false, task })
+  } catch (err) {
+    next(err)
+  }
 })
 
-taskRouter.patch('/:id', (req, res) => {
-  const { id } = req.params
-  const { content, author } = req.body
-  res.send(`Update task with id: ${id}`)
+taskRouter.patch('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const { content, author, completed } = req.body
+    const updatedTask = await Task.findByIdAndUpdate(
+      id,
+      { content, author, completed },
+      { new: true }
+    )
+    res.send({ error: false, task: updatedTask })
+  } catch (err) {
+    next(err)
+  }
 })
 
-taskRouter.delete('/:id', (req, res) => {
-  const { id } = req.params
-  res.send(`Delete task with id: ${id}`)
+taskRouter.delete('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    await Task.findByIdAndDelete(id)
+    res.send({ error: false, message: 'Task deleted' })
+  } catch (err) {
+    next(err)
+  }
 })
 
 export default taskRouter
