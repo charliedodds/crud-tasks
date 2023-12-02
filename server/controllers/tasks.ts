@@ -6,7 +6,7 @@ const taskRouter = express.Router()
 taskRouter.get('/', async (req, res, next) => {
   try {
     const tasks = await Task.find({})
-    res.send({ error: false, tasks })
+    res.send({ error: false, data: tasks })
   } catch (err) {
     next(err)
   }
@@ -17,7 +17,7 @@ taskRouter.get('/:id', async (req, res, next) => {
     const { id } = req.params
     const task = await Task.findById(id)
     if (task) {
-      res.send({ error: false, task })
+      res.send({ error: false, data: task })
     } else {
       throw { name: 'NotFound' }
     }
@@ -31,7 +31,7 @@ taskRouter.post('/', async (req, res, next) => {
     const { content, author } = req.body
     if (!content || !author) throw { name: 'FieldsMissing' }
     const task = await Task.create({ content, author })
-    res.send({ error: false, task })
+    res.send({ error: false, data: task })
   } catch (err) {
     next(err)
   }
@@ -46,7 +46,7 @@ taskRouter.patch('/:id', async (req, res, next) => {
       { content, author, completed },
       { new: true }
     )
-    res.send({ error: false, task: updatedTask })
+    res.send({ error: false, data: updatedTask })
   } catch (err) {
     next(err)
   }
