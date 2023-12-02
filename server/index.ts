@@ -1,13 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import taskRouter from './controllers/tasks'
 
 dotenv.config()
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.send('Hello world!')
-})
+app.use(express.json())
+
+app.use('/tasks', taskRouter)
 
 const PORT = process.env.PORT || 3001
 
