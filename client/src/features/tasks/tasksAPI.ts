@@ -18,14 +18,14 @@ export const tasksApi = createApi({
       Partial<ITask> & Pick<ITask, "id">
     >({
       query: ({ id, ...task }) => ({
-        url: `/tasks${id}`,
+        url: `/tasks/${id}`,
         method: "PATCH",
         body: task,
       }),
     }),
     deleteTask: builder.mutation<AsyncResponse<ITask>, ITask["id"]>({
       query: (id) => ({
-        url: `/tasks${id}`,
+        url: `/tasks/${id}`,
         method: "DELETE",
       }),
     }),
