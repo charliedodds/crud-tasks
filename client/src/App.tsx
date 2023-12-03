@@ -1,12 +1,7 @@
-import "./App.css"
-import Tasks from "./features/tasks/tasks"
+import Home from "./pages/home"
 
 function App() {
-  return (
-    <div className="App">
-      <Tasks />
-    </div>
-  )
+  return <Home />
 }
 
 export default App
