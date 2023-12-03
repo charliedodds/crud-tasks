@@ -1,3 +1,4 @@
+import CreateTaskForm from "./create-task-form"
 import Task from "./task"
 import { useGetTasksQuery } from "./tasksAPI"
 
@@ -17,6 +18,9 @@ const Tasks = () => {
   return (
     <section>
       <h1>Tasks</h1>
+      <section>
+        <CreateTaskForm />
+      </section>
       <section>
         {data?.data?.map((task) => (
           <Task key={task.id} task={task} />

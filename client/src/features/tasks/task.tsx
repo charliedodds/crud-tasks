@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from "react"
+import { FC, useState } from "react"
 import ITask from "../../types/task"
 import { useDeleteTaskMutation, useUpdateTaskMutation } from "./tasksAPI"
 import EditTaskForm from "./edit-task-form"
@@ -12,9 +12,9 @@ const Task: FC<Props> = ({ task }) => {
   const [updateTaskMutation, updateResult] = useUpdateTaskMutation()
   const [deleteTaskMutation, deleteResult] = useDeleteTaskMutation()
 
-  const content = updateResult.data?.data?.content || task.content
-  const completed = updateResult.data?.data?.completed ?? task.completed
-  const author = updateResult.data?.data?.author || task.author
+  const content = task.content
+  const completed = task.completed
+  const author = task.author
 
   const updateTask = (newTaskData?: Omit<ITask, "id">) => {
     updateTaskMutation({ id: task.id, completed: !completed, ...newTaskData })
@@ -29,7 +29,8 @@ const Task: FC<Props> = ({ task }) => {
     setIsEditing((state) => !state)
   }
 
-  if (updateResult.isLoading) return <p>Task loading</p>
+  if (updateResult.isLoading || deleteResult.isLoading)
+    return <p>Task loading</p>
 
   return (
     <article>
