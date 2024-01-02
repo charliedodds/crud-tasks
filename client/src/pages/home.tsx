@@ -1,6 +1,7 @@
 import CreateTaskForm from "../features/tasks/create-task-form"
 import Tasks from "../features/tasks/tasks"
 
+const ASSETS_URL = import.meta.env.VITE_APP_ASSETS_URL
 const Home = () => {
   return (
     <section className="flex flex-col gap-4">
@@ -8,19 +9,19 @@ const Home = () => {
         <div className="absolute inset-0">
           <img
             className="absolute inset-0 h-full object-cover"
-            src="https://assets.tryhackme.com/img/svgs/star-pattern.svg"
+            src={`${ASSETS_URL}/img/svgs/star-pattern.svg`}
             alt=""
           />
           <img
             className="absolute bottom-0"
-            src="https://tryhackme.com/img/illustrations/waves.svg"
+            src={`${ASSETS_URL}/img/illustrations/waves.svg`}
             alt=""
           />
         </div>
         <div className="relative h-full">
           <img
             className="mt-8 mx-auto h-1/3 md:w-1/3 md:absolute md:right-8 md:top-1/4 rocket-man"
-            src="https://tryhackme.com/img/getting-started/rocketman.svg"
+            src={`${ASSETS_URL}/img/getting-started/rocketman.svg`}
             alt=""
           />
           <section className="md:h-full h-1/2 md:w-1/2 flex flex-col gap-4 font-medium justify-center text-center items-stretch p-4 md:mr-auto">

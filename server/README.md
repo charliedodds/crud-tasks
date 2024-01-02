@@ -1,4 +1,4 @@
-# TryHackMe CRUD task api
+# CRUD task api
 
 ## Get started
 

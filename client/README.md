@@ -1,4 +1,4 @@
-# TryHackMe CRUD task front end
+# CRUD task front end
 
 Used [Redux Vite template](https://github.com/reduxjs/redux-templates/tree/master/packages/vite-template-redux)
 
